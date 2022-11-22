@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= post.title %></title> <meta name="description" content="<%= post.description %>">
+  <%- include ('../partials/styles') %> 
+</head>
+<body>
+  <%- include ('../partials/header') %> 
+<!-- ...................................>Container starts here .................................................... -->
+
+<div class="hero">
+  <div class="hero-content">
+    <h2 class="hero-blog-title mt-4" id="hero-blog-title"><%= post.title %></h2>
+    <hr />
+    <h2><%= post.subtitle %></h2>
+    <div class="hero-img-container">
+      <img src="<%= post.image %>" alt="" />
+    </div>
+    <small class="text-muted"
+      ><%= new Date(post.createdAt).toLocaleString('en-GB', {day:'numeric',
+      month: 'long', year:'numeric'}) %> -
+      <strong>Krisha Timalsina</strong></small
+    >
+    <hr />
+    <article class="m-3" id="hero-blog-para"><%- post.sanitizedHtml %></article>
+  </div>
+</div>
+
+<% if(currentUser){ %> 
+<div class="controls d-flex justify-content-center">
+  <a href="/posts/<%= post.id %>/edit" class="btn btn-outline-dark"
+    ><i class="fa-solid fa-pen-to-square"></i> Edit Post</a
+  >
+  <form
+    class="mx-4"
+    action="/posts/<%= post.id %>?_method=DELETE"
+    method="POST"
+  >
+    <button class="btn btn-outline-danger">
+      <i class="fa fa-trash"></i> Delete Post
+    </button>
+  </form>
+</div>
+<%} %> 
+<!-- ..............Comments Section Starts here .................... -->
+
+<div class="comments col-10 offset-1 mt-5">
+  <hr />
+  <h2>Comments</h2>
+  <ul class="comments">
+    <% for (let comment of post.comments) { %>
+    <li class="my-4">
+      <p class="my-0">
+        <strong><%= comment.name %></strong>
+        <small class="text-muted">
+          <%= new Date(comment.createdAt).toLocaleString('en-GB',
+          {day:'numeric', month: 'long', year:'numeric'}) %>
+        </small>
+        <% if (currentUser) {%>
+        <form class="comment-delete-btn" action="/posts/<%= post.id %>/comments/<%= comment.id  %>?_method=DELETE" method="post">
+          <button><i class="fa fa-trash"></i></button>
+        </form>
+       <% } %>
+      </p>
+      <p class="my-0"><%= comment.body %></p>
+    </li>
+    <% }%>
+  </ul>
+  <hr />
+</div>
+<section class="col-8 offset-2 mt-5">
+  <h2>Write a comment...</h2>
+  <form action="/posts/<%= post.id %>/comments" method="post">
+    <div class="mb-3">
+      <input
+        name="comment[name]"
+        type="text"
+        class="form-control"
+        placeholder="Full name"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="email"
+        name="comment[email]"
+        placeholder="Email"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <textarea
+        class="form-control"
+        name="comment[body]"
+        cols="30"
+        rows="5"
+        required
+        placeholder="Comment"
+      ></textarea>
+    </div>
+    <button class="btn btn-outline-dark">Submit</button>
+  </form>
+</section>
+  <%- include ('../partials/footer') %> 
+  <%- include ('../partials/scripts') %> 
+</body>
+</html>

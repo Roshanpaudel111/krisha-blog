@@ -1,0 +1,67 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="my-5">
+  <div class="col-8 offset-2">
+    <h2 class="mb-3" style="text-align: center">Add a BlogPost</h2>
+    <form action="/posts" method="post" novalidate class="needs-validation">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="post[title]"
+          placeholder="Title of the blogpost"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="subtitle" class="form-label">Sub-Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="subtitle"
+          name="post[subtitle]"
+          placeholder="Subtitle of the blogpost"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          name="post[description]"
+          id="description"
+          cols="30"
+          rows="2"
+          maxlength="100"
+          required
+          placeholder="Description of the blogpost"
+        ></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Image Url</label>
+        <input
+          type="text"
+          class="form-control"
+          id="image"
+          name="post[image]"
+          placeholder="Image Url"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="blog" class="form-label">Blog</label>
+        <textarea
+          class="form-control"
+          name="post[blog]"
+          id="blog"
+          cols="30"
+          rows="20"
+          required
+          placeholder="Write the blog"
+        ></textarea>
+      </div>
+      <button class="btn btn-outline-dark mt-3">Create Blog</button>
+    </form>
+  </div>
+</div>

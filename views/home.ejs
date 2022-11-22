@@ -1,0 +1,50 @@
+<% layout('layouts/boilerplate') %>
+<!-- ...............................................>Container starts here .................................................... -->
+
+<div class="hero">
+  <div class="hero-content">
+    <h2 class="hero-blog-title mt-4" id="hero-blog-title">
+      <%= posts[0].title %>
+    </h2>
+    <hr />
+    <h2><%= posts[0].subtitle %></h2>
+    <div class="hero-img-container">
+      <img src="<%= posts[0].image %>" alt="" />
+    </div>
+    <small class="text-muted"
+      ><%= new Date(posts[0].createdAt).toLocaleString('en-GB', {day:'numeric',
+      month: 'long', year:'numeric'}) %> -
+      <strong>Krisha Timalsina</strong></small
+    >
+    <hr />
+    <p class="m-3" id="hero-blog-para">
+      <%-posts[0].sanitizedHtml.slice(0,500)+'......' %>
+    </p>
+    <a
+      href="/posts/<%= posts[0].id %>"
+      id="hero-post-link"
+      class="btn-outline-dark btn"
+      >Read More....</a
+    >
+  </div>
+</div>
+
+<!-- ..................................................All blogs ................................................... -->
+<hr />
+<h2 class="all-blogs-heading my-5">Latest Articles</h2>
+<section class="all-blogs col-10 offset-1">
+  <% for (const post of posts) { %>
+  <a href="/posts/<%= post.id %>">
+    <div class="card" style="width: 18rem">
+      <img class="card-img-top" src="<%= post.image %>" alt="Card image cap" />
+      <div class="card-body">
+        <h5 class="card-title"><%= post.title %></h5>
+        <p class="card-text"><%= post.description %></p>
+      </div>
+    </div>
+  </a>
+  <%} %>
+</section>
+<div class="show-more-btn my-5">
+  <a href="/posts" class="btn btn-outline-dark">Show more</a>
+</div>
